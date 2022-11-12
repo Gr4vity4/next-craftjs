@@ -1,120 +1,51 @@
-import { useNode } from '@craftjs/core';
-import {
-  Button as MaterialButton,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-} from '@material-ui/core';
-import React from 'react';
+import { useNode } from "@craftjs/core";
+import { FormControl, FormLabel } from "@material-ui/core";
+import React from "react";
+import Slider from "../plugins/slider";
+import CustomButton from "../custom/button";
 
-export const Button = ({ size, variant, color, text, ...props }) => {
+export const Button = ({ size, variant, color, text, fontSize, ...props }) => {
   const {
     connectors: { connect, drag },
-  } = useNode();
+    selected,
+    actions: { setProp },
+  } = useNode((state) => ({
+    selected: state.events.selected,
+    dragged: state.events.dragged,
+  }));
+
   return (
-    <MaterialButton
-      ref={(ref) => connect(drag(ref))}
-      style={{ margin: '5px' }}
-      size={size}
-      variant={variant}
-      color={color}
-      {...props}
-    >
-      {text}
-    </MaterialButton>
+    <div {...props} ref={(ref) => connect(drag(ref))} onClick={() => selected}>
+      <CustomButton ref={(ref) => connect(drag(ref))} fontSize={fontSize} {...props}>
+        Click Me!
+      </CustomButton>
+    </div>
   );
 };
 
 export const ButtonSettings = () => {
   const {
     actions: { setProp },
-    props,
+    fontSize,
   } = useNode((node) => ({
-    props: node.data.props,
+    fontSize: node.data.props.fontSize,
   }));
 
   return (
     <div>
-      <FormControl size="small" component="fieldset">
-        <FormLabel component="legend">Size</FormLabel>
-        <RadioGroup
-          defaultValue={props.size}
-          onChange={(e) => setProp((props) => (props.size = e.target.value))}
-        >
-          <FormControlLabel
-            label="Small"
-            value="small"
-            control={<Radio size="small" color="primary" />}
-          />
-          <FormControlLabel
-            label="Medium"
-            value="medium"
-            control={<Radio size="small" color="primary" />}
-          />
-          <FormControlLabel
-            label="Large"
-            value="large"
-            control={<Radio size="small" color="primary" />}
-          />
-        </RadioGroup>
-      </FormControl>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Variant</FormLabel>
-        <RadioGroup
-          defaultValue={props.variant}
-          onChange={(e) => setProp((props) => (props.variant = e.target.value))}
-        >
-          <FormControlLabel
-            label="Text"
-            value="text"
-            control={<Radio size="small" color="primary" />}
-          />
-          <FormControlLabel
-            label="Outlined"
-            value="outlined"
-            control={<Radio size="small" color="primary" />}
-          />
-          <FormControlLabel
-            label="Contained"
-            value="contained"
-            control={<Radio size="small" color="primary" />}
-          />
-        </RadioGroup>
-      </FormControl>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Color</FormLabel>
-        <RadioGroup
-          defaultValue={props.color}
-          onChange={(e) => setProp((props) => (props.color = e.target.value))}
-        >
-          <FormControlLabel
-            label="Default"
-            value="default"
-            control={<Radio size="small" color="default" />}
-          />
-          <FormControlLabel
-            label="Primary"
-            value="primary"
-            control={<Radio size="small" color="primary" />}
-          />
-          <FormControlLabel
-            label="Secondary"
-            value="secondary"
-            control={<Radio size="small" color="primary" />}
-          />
-        </RadioGroup>
+        <FormLabel component="legend">Font Size</FormLabel>
+        <Slider initValue={fontSize} syncProp={setProp} />
       </FormControl>
     </div>
   );
 };
 
 export const ButtonDefaultProps = {
-  size: 'small',
-  variant: 'contained',
-  color: 'primary',
-  text: 'Click me',
+  size: "small",
+  variant: "contained",
+  color: "primary",
+  text: "Click me",
 };
 
 Button.craft = {

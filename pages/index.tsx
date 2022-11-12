@@ -10,6 +10,8 @@ import { Card, CardBottom, CardTop } from "../components/user/Card";
 import { Container } from "../components/user/Container";
 import { Text } from "../components/user/Text";
 
+import CustomButton from "../components/custom/button";
+
 const useStyles = makeStyles(() => ({
   root: {
     padding: 0,
@@ -33,6 +35,7 @@ export default function App() {
           Container,
           CardTop,
           CardBottom,
+          CustomButton,
         }}
       >
         <Topbar />
@@ -40,12 +43,7 @@ export default function App() {
           <Grid item xs>
             <Frame>
               <Element canvas is={Container} padding={5} background="#eeeeee" data-cy="root-container">
-                <Card data-cy="frame-card" />
-                <Button text="Click me" size="small" data-cy="frame-button" />
-                <Text fontSize={20} text="Hi world!" data-cy="frame-text" />
-                <Element canvas is={Container} padding={6} background="#999999" data-cy="frame-container">
-                  <Text size="small" text="It's me again!" data-cy="frame-container-text" />
-                </Element>
+                <div className="h-[300px]">{/* default component here ... */}</div>
               </Element>
             </Frame>
           </Grid>

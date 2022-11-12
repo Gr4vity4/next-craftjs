@@ -1,7 +1,8 @@
-import { useNode } from '@craftjs/core';
-import { Slider, FormControl, FormLabel } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
-import ContentEditable from 'react-contenteditable';
+import { useNode } from "@craftjs/core";
+import { FormControl, FormLabel } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import ContentEditable from "react-contenteditable";
+import Slider from "../plugins/slider";
 
 export const Text = ({ text, fontSize, textAlign, ...props }) => {
   const {
@@ -24,21 +25,11 @@ export const Text = ({ text, fontSize, textAlign, ...props }) => {
   }, [selected]);
 
   return (
-    <div
-      {...props}
-      ref={(ref) => connect(drag(ref))}
-      onClick={() => selected && setEditable(true)}
-    >
+    <div {...props} ref={(ref) => connect(drag(ref))} onClick={() => selected && setEditable(true)}>
       <ContentEditable
         html={text}
         disabled={!editable}
-        onChange={(e) =>
-          setProp(
-            (props) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
-            500
-          )
-        }
+        onChange={(e) => setProp((props) => (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")), 500)}
         tagName="p"
         style={{ fontSize: `${fontSize}px`, textAlign }}
       />
@@ -59,22 +50,14 @@ const TextSettings = () => {
     <>
       <FormControl size="small" component="fieldset">
         <FormLabel component="legend">Font size</FormLabel>
-        <Slider
-          value={fontSize || 7}
-          step={7}
-          min={1}
-          max={50}
-          onChange={(_, value) => {
-            setProp((props) => (props.fontSize = value), 1000);
-          }}
-        />
+        <Slider initValue={fontSize} syncProp={setProp} />
       </FormControl>
     </>
   );
 };
 
 export const TextDefaultProps = {
-  text: 'Hi',
+  text: "Hi",
   fontSize: 20,
 };
 
