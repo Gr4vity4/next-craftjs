@@ -5,7 +5,6 @@ import ContentEditable from "react-contenteditable";
 
 // import plugins
 import Slider from "../plugins/slider";
-import FontWeight from "../plugins/font-weight";
 
 export const Text = ({ text, fontSize, fontWeight, textAlign, ...props }) => {
   const {
@@ -55,12 +54,15 @@ const TextSettings = () => {
     <>
       <FormControl size="small" component="fieldset">
         <FormLabel component="legend">Font size</FormLabel>
-        <Slider initValue={fontSize} syncProp={setProp} />
-        <br />
-        <FormLabel component="legend">Font Weight</FormLabel>
-        <div className="pt-3">
-          <FontWeight initValue={fontWeight} syncProp={setProp} />
-        </div>
+        <Slider
+          initValue={[
+            {
+              fontsize: fontSize,
+              fontWeight: fontWeight,
+            },
+          ]}
+          syncProp={setProp}
+        />
       </FormControl>
     </>
   );

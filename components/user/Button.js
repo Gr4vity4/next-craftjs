@@ -5,7 +5,6 @@ import CustomButton from "../custom/button";
 
 // import plugins
 import Slider from "../plugins/slider";
-import FontWeight from "../plugins/font-weight";
 
 export const Button = ({ size, variant, color, text, fontSize, fontWeight, ...props }) => {
   const {
@@ -40,12 +39,15 @@ export const ButtonSettings = () => {
     <div>
       <FormControl component="fieldset">
         <FormLabel component="legend">Font Size</FormLabel>
-        <Slider initValue={fontSize} syncProp={setProp} />
-        <br />
-        <FormLabel component="legend">Font Weight</FormLabel>
-        <div className="pt-3">
-          <FontWeight initValue={fontWeight} syncProp={setProp} />
-        </div>
+        <Slider
+          initValue={[
+            {
+              fontsize: fontSize,
+              fontWeight: fontWeight,
+            },
+          ]}
+          syncProp={setProp}
+        />
       </FormControl>
     </div>
   );

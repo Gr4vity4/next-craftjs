@@ -9,10 +9,10 @@ const FontWeightPlugin = (props) => {
 
   return (
     <div className="flex gap-3">
-      <button type="button" className={`${props.initValue === 400 ? "bg-green-200" : "bg-red-200"}  px-4 py-2`} onClick={handleNormal}>
+      <button type="button" className={`${props.initValue[0].fontWeight === 400 ? "bg-green-200" : "bg-red-200"}  px-4 py-2`} onClick={handleNormal}>
         Normal
       </button>
-      <button type="button" className={`${props.initValue === 700 ? "bg-green-200" : "bg-red-200"}  px-4 py-2`} onClick={handleBold}>
+      <button type="button" className={`${props.initValue[0].fontWeight === 700 ? "bg-green-200" : "bg-red-200"}  px-4 py-2`} onClick={handleBold}>
         Bold
       </button>
     </div>
