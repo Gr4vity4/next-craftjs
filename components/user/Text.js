@@ -56,7 +56,11 @@ const TextSettings = () => {
       <FormControl size="small" component="fieldset">
         <FormLabel component="legend">Font size</FormLabel>
         <Slider initValue={fontSize} syncProp={setProp} />
-        <FontWeight initValue={fontWeight} syncProp={setProp} />
+        <br />
+        <FormLabel component="legend">Font Weight</FormLabel>
+        <div className="pt-3">
+          <FontWeight initValue={fontWeight} syncProp={setProp} />
+        </div>
       </FormControl>
     </>
   );
